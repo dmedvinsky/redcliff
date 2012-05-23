@@ -1,10 +1,8 @@
-from . import Redmine, AuthError
+from . import Redmine
 
 
 def list(args, conf):
     response = Redmine(conf).get('issue_statuses', None)
-    if response.status_code == 401:
-        raise AuthError
     return response.json
 
 
