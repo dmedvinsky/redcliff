@@ -1,6 +1,9 @@
 from ..utils import error
 
 
+choices = ['list', 'forme']
+
+
 def dispatch(cmd, args, conf):
     from . import list, forme  # NOQA
     try:
