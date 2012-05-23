@@ -27,11 +27,19 @@ def run(argv, conf):
                         metavar='ID|name',
                         help='Filter issues by project. Might be project ID or'
                              ' identifier.')
+    parser.add_argument('-s', '--status',
+                        help='Filter issues by status.')
     args = vars(parser.parse_args(argv))
 
     if args['for_me'] and not args['assigned_to_id']:
         user = api.users.current(None, conf)
         args['assigned_to_id'] = user['id']
+    if args['status']:
+        status = api.statuses.by_name(args['status'], conf)
+        if status:
+            args['status_id'] = status['id']
+        else:
+            error('error: status {0} not found'.format(args['status']))
 
     try:
         data = api.issues.list(args, conf)

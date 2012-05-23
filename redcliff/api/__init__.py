@@ -24,5 +24,5 @@ class Redmine(object):
         return response
 
 
-from . import issues, users
-__all__ = [AuthError, issues, users]
+from . import issues, users, statuses
+__all__ = [AuthError, issues, users, statuses]

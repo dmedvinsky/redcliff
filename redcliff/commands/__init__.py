@@ -1,11 +1,11 @@
 from ..utils import error
 
 
-choices = ['list', 'forme']
+choices = ['list', 'forme', 'now']
 
 
 def dispatch(cmd, args, conf):
-    from . import list, forme  # NOQA
+    from . import list, forme, now  # NOQA
     try:
         run = locals()[cmd].run
     except (KeyError, AttributeError):
