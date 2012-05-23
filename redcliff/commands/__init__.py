@@ -1,3 +1,5 @@
+from importlib import import_module
+
 from ..utils import error
 
 
@@ -5,9 +7,9 @@ choices = ['list', 'forme', 'now']
 
 
 def dispatch(cmd, args, conf):
-    from . import list, forme, now  # NOQA
+    modules = dict((n, import_module('.%s' % n, __name__)) for n in choices)
     try:
-        run = locals()[cmd].run
+        run = modules[cmd].run
     except (KeyError, AttributeError):
         error('fatal: invalid command {0}'.format(cmd))
         return 1
