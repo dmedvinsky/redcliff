@@ -3,7 +3,7 @@ from importlib import import_module
 from ..utils import error
 
 
-choices = ['list', 'forme', 'now']
+choices = ['list', 'forme', 'now', 'update']
 
 
 def dispatch(cmd, args, conf):
