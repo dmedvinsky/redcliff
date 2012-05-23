@@ -2,8 +2,9 @@ from sys import exit
 
 import argparse
 
-from .config import get_config
 from .commands import dispatch
+from .config import get_config
+from .utils import merge
 
 
 def main():
@@ -13,9 +14,15 @@ def main():
     parser.add_argument('-C', '--config-file')
     parser.add_argument('cmd')
     parser.add_argument('args', nargs=argparse.REMAINDER)
-    args = parser.parse_args()
-    conf = get_config(args.config_file)
-    return dispatch(args.cmd, args.args, conf)
+
+    args = vars(parser.parse_args())
+    conf = get_config(args.pop('config_file'))
+
+    cmd = args.pop('cmd')
+    cmd_args = args.pop('args')
+    merged_conf = merge(conf, args)
+
+    return dispatch(cmd, cmd_args, merged_conf)
 
 
 if __name__ == '__main__':
