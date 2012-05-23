@@ -1,7 +1,8 @@
 import argparse
 
-from ..utils import error
 from .. import api
+from .. import renderer
+from ..utils import error
 
 
 def run(argv, conf):
@@ -50,5 +51,5 @@ def run(argv, conf):
         error('fatal: API error')
         raise
     else:
-        print(data)
+        renderer.issues.as_table(data)
     return 0
