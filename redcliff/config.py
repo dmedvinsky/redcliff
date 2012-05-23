@@ -8,8 +8,6 @@ from .utils import compose, merge
 
 defaults = lambda: {
 
-}
-
 
 def open_config(path):
     if path is None:
