@@ -1,12 +1,11 @@
 import json
 
 from clint import resources
-from clint import textui as ui
 
-from .utils import compose, merge
+from .utils import compose, merge, error
 
 
-defaults = lambda: {
+defaults = lambda: {}
 
 
 def open_config(path):
@@ -29,8 +28,7 @@ def get_config(path):
     try:
         conf = parse_file(path)
     except ValueError:
-        ui.puts(ui.colored.red("error: couldn't parse config file"),
-                stream=ui.STDERR)
+        error("error: couldn't parse config file")
         conf = {}
     return merge(conf, defaults())
 
