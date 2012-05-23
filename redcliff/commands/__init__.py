@@ -1,11 +1,11 @@
-from clint import textui as ui
+from ..utils import error
 
 
 def dispatch(cmd, args, conf):
-    from . import list  # NOQA
+    from . import list, forme  # NOQA
     try:
-        return locals()[cmd].run(args, conf)
+        run = locals()[cmd].run
     except (KeyError, AttributeError):
-        ui.puts(ui.colored.red('fatal: invalid command {0}'.format(cmd)),
-                stream=ui.STDERR)
+        error('fatal: invalid command {0}'.format(cmd))
         return 1
+    return run(args, conf)
