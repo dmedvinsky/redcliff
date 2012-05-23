@@ -8,6 +8,7 @@ from .commands import dispatch
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-u', '--base-url')
     parser.add_argument('-k', '--api-key')
     parser.add_argument('-C', '--config-file')
     parser.add_argument('cmd')
