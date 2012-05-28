@@ -2,6 +2,7 @@ from sys import exit
 
 import argparse
 
+from . import api
 from .commands import dispatch, choices
 from .config import get_config
 from .utils import merge, error
@@ -41,7 +42,11 @@ def main():
         error('fatal: base_url and api_key are required')
         return 1
 
-    return dispatch(cmd, cmd_args, merged_conf)
+    try:
+        return dispatch(cmd, cmd_args, merged_conf)
+    except api.AuthError:
+        error('fatal: authentication error')
+        return 1
 
 
 if __name__ == '__main__':

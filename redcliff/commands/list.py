@@ -44,11 +44,8 @@ def run(argv, conf):
 
     try:
         data = api.issues.list(args, conf)
-    except api.AuthError:
-        error('fatal: authentication error')
-        return 1
     except:
-        error('fatal: API error')
+        error('fatal: API error while gettings issues list')
         raise
     else:
         renderer.issues.as_table(data)

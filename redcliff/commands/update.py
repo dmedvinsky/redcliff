@@ -13,7 +13,11 @@ def run(argv, conf):
     args = vars(parser.parse_args(argv))
 
     if args['status']:
-        status = api.statuses.by_name(args.pop('status'), conf)
+        try:
+            status = api.statuses.by_name(args.pop('status'), conf)
+        except:
+            error('fatal: API error while getting status by name')
+            raise
         if status:
             args['status_id'] = status['id']
         else:
@@ -22,11 +26,8 @@ def run(argv, conf):
 
     try:
         api.issues.update(args, conf)
-    except api.AuthError:
-        error('fatal: authentication error')
-        return 1
     except:
-        error('fatal: API error')
+        error('fatal: API error while updating')
         raise
     else:
         success('Successfully updated.')
