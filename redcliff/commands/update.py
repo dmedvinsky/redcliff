@@ -8,6 +8,9 @@ def run(argv, conf):
     parser = argparse.ArgumentParser(prog='update')
     parser.add_argument('-s', '--status',
                         help='Change issue status.')
+    parser.add_argument('-m', '--message',
+                        dest='notes',
+                        help='Add note to the change.')
     parser.add_argument('id',
                         type=int)
     args = vars(parser.parse_args(argv))
